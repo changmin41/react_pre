@@ -1,0 +1,55 @@
+import { useState } from 'react'
+
+function App() {
+    const [todoId, setTodoId] = useState(4)
+    // 초기값 설정
+    const [todos, setTodos] = useState([
+        { id: '3', text: '공부하기', checked: false },
+        { id: '2', text: '야구보기', checked: false },
+        { id: '1', text: '운동하기', checked: false },
+    ])
+    //추가 기능
+    const hadleOnSubmit = (e) => {
+        e.preventDefault()
+        const form = e.target
+        setTodos([{ id: todoId, text: form.todo.value, checked: false }, ...todos])
+        setTodoId(todoId + 1)
+    }
+    //삭제 기능
+    const removeTodo = (selectId) => {
+        //기능
+        const fileterTodos = todos.filter((todo, index) => todo.id != selectId)
+        console.log(fileterTodos)
+        setTodos(fileterTodos)
+    }
+    //체크 기능
+    const toggleTodo = (seletedId) => {
+        const updateTodos = todos.map((todo) => (todo.id == seletedId ? { ...todo, checked: !todo.checked } : todo))
+        setTodos(updateTodos)
+    }
+
+    return (
+        <>
+            <form onSubmit={hadleOnSubmit}>
+                <input type="text" name="todo" />
+                <button>입력하기</button>
+            </form>
+            <ul>
+                {todos.map((todo) => (
+                    <li key={todo.id}>
+                        <input
+                            type="checkbox"
+                            onChange={() => {
+                                toggleTodo(todo.id)
+                            }}
+                        />
+                        {JSON.stringify(todo.checked)} / {todo.id} / {todo.text}
+                        <button onClick={() => removeTodo(todo.id)}> X</button>
+                    </li>
+                ))}
+            </ul>
+        </>
+    )
+}
+
+export default App

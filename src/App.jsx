@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 function App() {
-    const [todoId, setTodoId] = useState(4)
+    const lastId = useRef(4)
     // 초기값 설정
     const [todos, setTodos] = useState([
-        { id: '3', text: '공부하기', checked: false },
+        { id: '3', text: '공부하기', checked: true },
         { id: '2', text: '야구보기', checked: false },
         { id: '1', text: '운동하기', checked: false },
     ])
@@ -12,8 +12,9 @@ function App() {
     const hadleOnSubmit = (e) => {
         e.preventDefault()
         const form = e.target
-        setTodos([{ id: todoId, text: form.todo.value, checked: false }, ...todos])
-        setTodoId(todoId + 1)
+
+        setTodos([{ id: lastId.current, text: form.todo.value, checked: false }, ...todos])
+        lastId.current++
     }
     //삭제 기능
     const removeTodo = (selectId) => {
@@ -42,6 +43,7 @@ function App() {
                             onChange={() => {
                                 toggleTodo(todo.id)
                             }}
+                            checked={todo.checked}
                         />
                         {JSON.stringify(todo.checked)} / {todo.id} / {todo.text}
                         <button onClick={() => removeTodo(todo.id)}> X</button>

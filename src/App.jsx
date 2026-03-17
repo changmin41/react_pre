@@ -1,16 +1,17 @@
-import TodoWriteForm from './components/TodoWriteForm'
-import TodoList from './components/TodoList'
-import { useTodos } from './hooks/useTodos'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Main from './pages/Main'
+import List from './pages/List'
+import Form from './pages/Form'
 
 function App() {
-    const { todos, addTodo, removeTodo, toggleTodo } = useTodos()
-
     return (
-        <>
-            {/* 할일등록 */}
-            <TodoWriteForm addTodo={addTodo} />
-            <TodoList todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route index element={<Main />}></Route>
+                <Route path="/list" element={<List />}></Route>
+                <Route path="/new" element={<Form />}></Route>
+            </Routes>
+        </BrowserRouter>
     )
 }
 

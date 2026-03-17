@@ -2,7 +2,7 @@ import { useTodos } from '../context/TodoContext'
 
 function TodoWriteForm() {
     const { addTodo } = useTodos()
-    const handleOnSubmit = (e) => {
+    const hadleOnsubmit = (e) => {
         e.preventDefault()
         const form = e.target
         addTodo(form.todo.value)
@@ -10,9 +10,9 @@ function TodoWriteForm() {
 
     return (
         <>
-            <form onSubmit={handleOnSubmit}>
+            <form onSubmit={hadleOnsubmit}>
                 <input type="text" name="todo" />
-                <button type="submit">등록</button>
+                <button>입력</button>
             </form>
         </>
     )
